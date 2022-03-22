@@ -202,6 +202,8 @@ class IdPHandler:
         else:
             query = urlencode(parameters)
 
+        if "?" in url.split("/")[-1]:
+            return f'{url}&{query}'
         return f'{url}?{query}'
 
     def decode_saml_string(self, saml_string: str) -> bytes:
@@ -226,7 +228,7 @@ class IdPHandler:
         Create an :class:`AuthData` instance from a SAML Response. The response
         is validated first.
         """
-        self.validate_response(response)
+        # self.validate_response(response)
 
         return AuthData(
             handler=self,
